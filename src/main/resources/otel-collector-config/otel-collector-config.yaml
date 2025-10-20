@@ -1,0 +1,30 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  batch:
+
+exporters:
+  azuremonitor:
+    connection_string: "InstrumentationKey=8d1db4ec-93b0-4ceb-8629-8188a58e5b4b;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/;ApplicationId=664a61c4-291e-4a79-97a6-6c29ee9bcada"
+    # Example: InstrumentationKey=xxxx-xxxx-xxxx-xxxx;IngestionEndpoint=https://westeurope-0.in.applicationinsights.azure.com/
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [azuremonitor]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [azuremonitor]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [azuremonitor]

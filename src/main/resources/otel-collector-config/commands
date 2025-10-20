@@ -1,0 +1,9 @@
+
+// Run OpenTelemetry Collector with a custom configuration file
+
+docker run --rm -it \
+  -v $(pwd)/otel-collector-config.yaml:/etc/otelcol/config.yaml \
+  -p 4317:4317 \
+  -p 4318:4318 \
+  otel/opentelemetry-collector-contrib:latest \
+  --config /etc/otelcol/config.yaml
